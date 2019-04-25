@@ -1,0 +1,7 @@
+name: MobArenaQuests
+version: 1.0
+description: Quests module for MobArena
+author: PikaMug
+
+main: me.pikamug.MobArenaQuests
+depend: [MobArena, Quests]
