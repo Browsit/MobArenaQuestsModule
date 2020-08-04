@@ -44,7 +44,7 @@ public class MobArenaCompleteObjective extends CustomObjective implements Listen
 		for (Player survivor : survivors) {
 			Quester quester = quests.getQuester(survivor.getUniqueId());
 			if (quester == null) {
-				return;
+				continue;
 			}
 			String arenaName = event.getArena().arenaName();
 			for (Quest q : quester.getCurrentQuests().keySet()) {
@@ -58,10 +58,9 @@ public class MobArenaCompleteObjective extends CustomObjective implements Listen
 					for (String str : spl) {
 						if (str.equals("ANY") || arenaName.equalsIgnoreCase(str)) {
 							incrementObjective(survivor, this, 1, q);
-							return;
+							break;
 						}
 					}
-					return;
 				}
 			}
 		}
