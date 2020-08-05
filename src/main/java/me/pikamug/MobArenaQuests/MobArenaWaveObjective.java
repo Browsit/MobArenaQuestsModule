@@ -11,7 +11,6 @@
 package me.pikamug.MobArenaQuests;
 
 import java.util.Map;
-import java.util.Set;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -26,7 +25,7 @@ import me.blackvein.quests.Quester;
 import me.blackvein.quests.Quests;
 
 public class MobArenaWaveObjective extends CustomObjective implements Listener {
-	private static Quests quests = (Quests) Bukkit.getServer().getPluginManager().getPlugin("Quests");
+	private final Quests quests = (Quests) Bukkit.getServer().getPluginManager().getPlugin("Quests");
 	
 	public MobArenaWaveObjective() {
 		setName("MobArena Wave Objective");
@@ -39,23 +38,22 @@ public class MobArenaWaveObjective extends CustomObjective implements Listener {
 	}
 	
 	@EventHandler
-	public void onNewWave(NewWaveEvent event) {
-		Set<Player> players = event.getArena().getPlayersInArena();
-		for (Player player : players) {
-			Quester quester = quests.getQuester(player.getUniqueId());
+	public void onNewWave(final NewWaveEvent event) {
+		for (final Player player : event.getArena().getPlayersInArena()) {
+			final Quester quester = quests.getQuester(player.getUniqueId());
 			if (quester == null) {
 				continue;
 			}
-			String arenaName = event.getArena().arenaName();
-			for (Quest q : quester.getCurrentQuests().keySet()) {
-				Map<String, Object> datamap = getDataForPlayer(player, this, q);
+			final String arenaName = event.getArena().arenaName();
+			for (final Quest q : quester.getCurrentQuests().keySet()) {
+				final Map<String, Object> datamap = getDataForPlayer(player, this, q);
 				if (datamap != null) {
-					String arenaNames = (String)datamap.getOrDefault("MA Arena Names", "ANY");
+					final String arenaNames = (String)datamap.getOrDefault("MA Arena Names", "ANY");
 					if (arenaNames == null) {
 						incrementObjective(player, this, 1, q);
 					}
-					String[] spl = arenaNames.split(",");
-					for (String str : spl) {
+					final String[] spl = arenaNames.split(",");
+					for (final String str : spl) {
 						if (str.equals("ANY") || arenaName.equalsIgnoreCase(str)) {
 							incrementObjective(player, this, 1, q);
 							break;

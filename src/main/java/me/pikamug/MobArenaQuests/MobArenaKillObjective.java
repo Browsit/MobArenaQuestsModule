@@ -25,7 +25,7 @@ import me.blackvein.quests.Quester;
 import me.blackvein.quests.Quests;
 
 public class MobArenaKillObjective extends CustomObjective implements Listener {
-	private static Quests quests = (Quests) Bukkit.getServer().getPluginManager().getPlugin("Quests");
+	private final Quests quests = (Quests) Bukkit.getServer().getPluginManager().getPlugin("Quests");
 	
 	public MobArenaKillObjective() {
 		setName("MobArena Kill Objective");
@@ -38,25 +38,25 @@ public class MobArenaKillObjective extends CustomObjective implements Listener {
 	}
 	
 	@EventHandler
-	public void onArenaKill(ArenaKillEvent event) {
-		Player killer = event.getPlayer();
+	public void onArenaKill(final ArenaKillEvent event) {
+		final Player killer = event.getPlayer();
 		if (killer == null) {
 			return;
 		}
-		Quester quester = quests.getQuester(killer.getUniqueId());
+		final Quester quester = quests.getQuester(killer.getUniqueId());
 		if (quester == null) {
 			return;
 		}
-		String mobName = event.getVictim().getName();
-		for (Quest q : quester.getCurrentQuests().keySet()) {
-			Map<String, Object> datamap = getDataForPlayer(killer, this, q);
+		final String mobName = event.getVictim().getName();
+		for (final Quest q : quester.getCurrentQuests().keySet()) {
+			final Map<String, Object> datamap = getDataForPlayer(killer, this, q);
 			if (datamap != null) {
-				String mobNames = (String)datamap.getOrDefault("MA Kill Names", "ANY");
+				final String mobNames = (String)datamap.getOrDefault("MA Kill Names", "ANY");
 				if (mobNames == null) {
 					continue;
 				}
-				String[] spl = mobNames.split(",");
-				for (String str : spl) {
+				final String[] spl = mobNames.split(",");
+				for (final String str : spl) {
 					if (str.equals("ANY") || mobName.equalsIgnoreCase(str)) {
 						incrementObjective(killer, this, 1, q);
 						break;
