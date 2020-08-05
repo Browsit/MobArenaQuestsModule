@@ -44,7 +44,7 @@ public class MobArenaWaveObjective extends CustomObjective implements Listener {
 		for (Player player : players) {
 			Quester quester = quests.getQuester(player.getUniqueId());
 			if (quester == null) {
-				return;
+				continue;
 			}
 			String arenaName = event.getArena().arenaName();
 			for (Quest q : quester.getCurrentQuests().keySet()) {
@@ -58,10 +58,9 @@ public class MobArenaWaveObjective extends CustomObjective implements Listener {
 					for (String str : spl) {
 						if (str.equals("ANY") || arenaName.equalsIgnoreCase(str)) {
 							incrementObjective(player, this, 1, q);
-							return;
+							break;
 						}
 					}
-					return;
 				}
 			}
 		}

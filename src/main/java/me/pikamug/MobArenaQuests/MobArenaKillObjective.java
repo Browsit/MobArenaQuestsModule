@@ -53,13 +53,13 @@ public class MobArenaKillObjective extends CustomObjective implements Listener {
 			if (datamap != null) {
 				String mobNames = (String)datamap.getOrDefault("MA Kill Names", "ANY");
 				if (mobNames == null) {
-					return;
+					continue;
 				}
 				String[] spl = mobNames.split(",");
 				for (String str : spl) {
 					if (str.equals("ANY") || mobName.equalsIgnoreCase(str)) {
 						incrementObjective(killer, this, 1, q);
-						return;
+						break;
 					}
 				}
 			}
