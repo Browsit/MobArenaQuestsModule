@@ -1,4 +1,6 @@
-/*******************************************************************************************************
+/*
+ * Copyright (c) 2019 PikaMug and contributors. All rights reserved.
+ *
  * THIS SOFTWARE IS PROVIDED "AS IS" AND ANY EXPRESSED OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
  * TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN
  * NO EVENT SHALL THE REGENTS OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
@@ -6,9 +8,9 @@
  * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY
  * OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- *******************************************************************************************************/
+ */
 
-package me.pikamug.MobArenaQuests;
+package me.pikamug.mobarenaquests;
 
 import java.util.Map;
 
@@ -32,9 +34,9 @@ public class MobArenaKillObjective extends CustomObjective implements Listener {
 		setAuthor("PikaMug");
 		setShowCount(true);
 		addStringPrompt("MA Kill Obj", "Set a name for the objective", "Kill arena mob");
-		addStringPrompt("MA Kill Names", "Enter arena mob names, separating each one by a comma", "ANY");
+		addStringPrompt("MA Kill Name", "Enter arena mob names, separating each one by a comma", "ANY");
 		setCountPrompt("Set the amount of arena mobs to kill");
-		setDisplay("%MA Kill Obj% %MA Kill Names%: %count%");
+		setDisplay("%MA Kill Obj% %MA Kill Name%: %count%");
 	}
 	
 	@EventHandler
@@ -43,7 +45,7 @@ public class MobArenaKillObjective extends CustomObjective implements Listener {
 		if (killer == null) {
 			return;
 		}
-		final Quester quester = quests.getQuester(killer.getUniqueId());
+		final Quester quester = MobArenaModule.getQuests().getQuester(killer.getUniqueId());
 		if (quester == null) {
 			return;
 		}
@@ -51,9 +53,9 @@ public class MobArenaKillObjective extends CustomObjective implements Listener {
 		for (final Quest q : quester.getCurrentQuests().keySet()) {
 			final Map<String, Object> datamap = getDataForPlayer(killer, this, q);
 			if (datamap != null) {
-				final String mobNames = (String)datamap.getOrDefault("MA Kill Names", "ANY");
+				final String mobNames = (String)datamap.getOrDefault("MA Kill Name", "ANY");
 				if (mobNames == null) {
-					continue;
+					return;
 				}
 				final String[] spl = mobNames.split(",");
 				for (final String str : spl) {
