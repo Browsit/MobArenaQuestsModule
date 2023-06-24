@@ -6,7 +6,7 @@
 
     <groupId>me.pikamug.mobarenaquests</groupId>
     <artifactId>MobArenaQuestsModule</artifactId>
-    <version>1.2</version>
+    <version>1.3</version>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -37,19 +37,19 @@
         <dependency>
             <groupId>me.blackvein.quests</groupId>
             <artifactId>quests-api</artifactId>
-            <version>4.4.0</version>
+            <version>4.8.3</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>me.blackvein.quests</groupId>
             <artifactId>quests-core</artifactId>
-            <version>4.4.0</version>
+            <version>4.8.3</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>com.github.garbagemule</groupId>
             <artifactId>MobArena</artifactId>
-            <version>0.106</version>
+            <version>0.107</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>

@@ -36,7 +36,7 @@ public class MobArenaWaveObjective extends CustomObjective implements Listener {
 		addStringPrompt("MA Survive Obj", "Set a name for the objective", "Survive waves");
 		addStringPrompt("MA Survive Arena", "Enter arena names, separating each one by a comma", "ANY");
 		setCountPrompt("Set the amount of waves to survive");
-		setDisplay("%MA Survive Obj% %MA Arena Names%: %count%");
+		setDisplay("%MA Survive Obj% %MA Survive Arena%: %count%");
 	}
 	
 	@EventHandler
