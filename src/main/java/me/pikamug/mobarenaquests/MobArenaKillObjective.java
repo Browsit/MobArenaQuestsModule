@@ -14,20 +14,16 @@ package me.pikamug.mobarenaquests;
 
 import java.util.Map;
 
-import org.bukkit.Bukkit;
+import me.pikamug.quests.module.BukkitCustomObjective;
+import me.pikamug.quests.player.Quester;
+import me.pikamug.quests.quests.Quest;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
 import com.garbagemule.MobArena.events.ArenaKillEvent;
 
-import me.blackvein.quests.CustomObjective;
-import me.blackvein.quests.Quest;
-import me.blackvein.quests.Quester;
-import me.blackvein.quests.Quests;
-
-public class MobArenaKillObjective extends CustomObjective implements Listener {
-	private final Quests quests = (Quests) Bukkit.getServer().getPluginManager().getPlugin("Quests");
+public class MobArenaKillObjective extends BukkitCustomObjective implements Listener {
 	
 	public MobArenaKillObjective() {
 		setName("MobArena Kill Objective");
@@ -51,7 +47,7 @@ public class MobArenaKillObjective extends CustomObjective implements Listener {
 		}
 		final String mobName = event.getVictim().getName();
 		for (final Quest q : quester.getCurrentQuests().keySet()) {
-			final Map<String, Object> datamap = getDataForPlayer(killer, this, q);
+			final Map<String, Object> datamap = getDataForPlayer(killer.getUniqueId(), this, q);
 			if (datamap != null) {
 				final String mobNames = (String)datamap.getOrDefault("MA Kill Name", "ANY");
 				if (mobNames == null) {
@@ -60,7 +56,7 @@ public class MobArenaKillObjective extends CustomObjective implements Listener {
 				final String[] spl = mobNames.split(",");
 				for (final String str : spl) {
 					if (str.equals("ANY") || mobName.equalsIgnoreCase(str)) {
-						incrementObjective(killer, this, 1, q);
+						incrementObjective(killer.getUniqueId(), this, q, 1);
 						break;
 					}
 				}

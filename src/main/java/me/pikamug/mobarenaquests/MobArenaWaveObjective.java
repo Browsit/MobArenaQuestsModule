@@ -14,20 +14,16 @@ package me.pikamug.mobarenaquests;
 
 import java.util.Map;
 
-import org.bukkit.Bukkit;
+import me.pikamug.quests.module.BukkitCustomObjective;
+import me.pikamug.quests.player.Quester;
+import me.pikamug.quests.quests.Quest;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
 import com.garbagemule.MobArena.events.NewWaveEvent;
 
-import me.blackvein.quests.CustomObjective;
-import me.blackvein.quests.Quest;
-import me.blackvein.quests.Quester;
-import me.blackvein.quests.Quests;
-
-public class MobArenaWaveObjective extends CustomObjective implements Listener {
-	private final Quests quests = (Quests) Bukkit.getServer().getPluginManager().getPlugin("Quests");
+public class MobArenaWaveObjective extends BukkitCustomObjective implements Listener {
 	
 	public MobArenaWaveObjective() {
 		setName("MobArena Wave Objective");
@@ -48,7 +44,7 @@ public class MobArenaWaveObjective extends CustomObjective implements Listener {
 			}
 			final String arenaName = event.getArena().arenaName();
 			for (final Quest q : quester.getCurrentQuests().keySet()) {
-				final Map<String, Object> datamap = getDataForPlayer(player, this, q);
+				final Map<String, Object> datamap = getDataForPlayer(player.getUniqueId(), this, q);
 				if (datamap != null) {
 					final String arenaNames = (String)datamap.getOrDefault("MA Survive Arena", "ANY");
 					if (arenaNames == null) {
@@ -57,7 +53,7 @@ public class MobArenaWaveObjective extends CustomObjective implements Listener {
 					final String[] spl = arenaNames.split(",");
 					for (final String str : spl) {
 						if (str.equals("ANY") || arenaName.equalsIgnoreCase(str)) {
-							incrementObjective(player, this, 1, q);
+							incrementObjective(player.getUniqueId(), this, q, 1);
 							break;
 						}
 					}
