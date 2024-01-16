@@ -1,8 +1,8 @@
 name: MobArenaQuests
-version: 2.0
+version: 2.1
 description: Quests module for MobArena
-author: PikaMug
-website: https://github.com/PikaMug/MobArenaQuestsModule
+author: Browsit
+website: https://github.com/Browsit/MobArenaQuestsModule
 
-main: me.pikamug.mobarenaquests
+main: org.browsit.mobarenaquests
 depend: [MobArena, Quests]
